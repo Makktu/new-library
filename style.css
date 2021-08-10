@@ -1,3 +1,94 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
 * {
     box-sizing: border-box;
+}
+
+body {
+    background-color: #002d62;
+    color: whitesmoke;
+    font-family: "Roboto", sans-serif;
+}
+
+.flex-display {
+    display: flex;
+    flex-direction: row;
+}
+
+.new-button {
+    font-size: 3rem;
+    text-align: center;
+    cursor: pointer;
+    background: turquoise;
+    width: 3.3rem;
+    height: 3.4rem;
+    border-radius: 50px;
+}
+
+.new-button:hover {
+    background: rgb(15, 218, 15);
+    transition: 0.5s;
+}
+
+.invisible {
+    opacity: 0;
+    transition: 1s ease;
+}
+
+.new-form {
+    margin-top: 30px;
+    background-color: rgb(95, 175, 175);
+    color: black;
+    height: 22rem;
+    width: 15rem;
+    border-radius: 17px;
+    transition: 1s ease;
+    text-align: center;
+}
+
+p {
+    font-size: 1.5rem;
+}
+
+input {
+    width: 14rem;
+    height: 2.5rem;
+    border-radius: 15px;
+    margin-top: 15px;
+    font-size: 1.8rem;
+    background: rgb(185, 200, 201);
+    border-style: none;
+}
+
+textarea:focus,
+input:focus {
+    outline: none;
+    background-color: lightgreen;
+}
+
+button {
+    margin-top: 15px;
+    border-radius: 10px;
+    font-size: 1.15rem;
+    width: 6rem;
+    cursor: pointer;
+}
+
+button:hover {
+    background: rgb(182, 230, 9);
+}
+
+.save-btn {
+    background: chartreuse;
+}
+
+.clear-btn {
+    background: crimson;
+}
+
+.main-display {
+    border: 1px white solid;
+    width: 80vw;
+    height: 100vh;
+    margin-left: 5px;
 }

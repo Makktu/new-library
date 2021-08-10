@@ -10,6 +10,34 @@
         <title>New Library Webapp</title>
     </head>
     <body>
+        <div class="flex-display">
+            <div class="side-show">
+                <div class="new-button">➕</div>
+                <div class="new-form invisible">
+                    <form>
+                        <p>NEW BOOK</p>
+                        <input
+                            type="text"
+                            class="author"
+                            placeholder="Author"
+                        />
+                        <input type="text" class="title" placeholder="Title" />
+                        <input
+                            type="text"
+                            class="format"
+                            placeholder="Format"
+                        />
+                        <input type="text" class="read" placeholder="Read?" />
+                    </form>
+                    <button class="save-btn">SAVE</button>
+                    <button class="clear-btn">CLEAR</button>
+                </div>
+                <div class="message-area"></div>
+            </div>
+            <div class="main-display">
+                <!-- All Books Shown Here -->
+            </div>
+        </div>
         <script src="script.js"></script>
     </body>
 </html>
