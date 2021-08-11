@@ -25,14 +25,14 @@ body {
     border-radius: 50px;
 }
 
-.new-button:hover {
-    background: rgb(15, 218, 15);
-    transition: 0.5s;
-}
-
 .invisible {
     opacity: 0;
     transition: 1s ease;
+}
+
+.new-button:hover {
+    background: rgb(198, 241, 4);
+    transition: 0.5s;
 }
 
 .new-form {
@@ -87,8 +87,46 @@ button:hover {
 }
 
 .main-display {
-    border: 1px white solid;
+    display: flex;
+    flex-direction: row;
+    /* border: 1px white solid; */
     width: 80vw;
     height: 100vh;
-    margin-left: 5px;
+    margin-left: 3vw;
+    margin-top: 3vh;
+}
+
+@keyframes error {
+    30% {
+        background-color: red;
+    }
+    100% {
+        background-color: turquoise;
+    }
+}
+
+.error {
+    animation-name: error;
+    animation-duration: 1s;
+}
+
+.book-card {
+    border: 3px green solid;
+    background: rgb(32, 43, 28);
+    border-radius: 10px;
+    width: 12rem;
+    height: 11rem;
+    font-size: 1.25rem;
+    padding: 10px;
+    transition: 0.5s;
+    margin-left: 10px;
+}
+
+.edit-btn {
+    float: right;
+    height: 1.3rem;
+    width: 1rem;
+    cursor: pointer;
+    text-align: center;
+    background: tomato;
 }
