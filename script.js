@@ -4,15 +4,34 @@
 // ************** FUNCTIONS ****************
 // *****************************************
 
+function editThis(editingBook) {
+    editingBook = editingBook.substring(13);
+    const thisIsTheBook = theLibrary[editingBook - 1];
+    if (newForm.classList.contains("invisible")) openOrCloseForm();
+    document.querySelector(".author").value = thisIsTheBook.author;
+    document.querySelector(".title").value = thisIsTheBook.title;
+    document.querySelector(".format").value = thisIsTheBook.format;
+    document.querySelector(".read").value = thisIsTheBook.read;
+    editInProgress = true;
+}
+
 function updateDisplay() {
     allBooks = "";
     theLibrary.forEach((book) => {
         // ? NEEDS TO CREATE DISPLAY CARD NEXT TIME!!!
-        const thisBook = `<div class="book-card"><div class="edit-btn card${book.index}">X</div>Book# ${book.index}<br>Author: ${book.author}<br>Title: ${book.title}<br>Format: ${book.format}<br>Read: ${book.read}<br></div><br>`;
+        const thisBook = `<div class="book-card"><div class="edit-btn card${book.index}">❔</div>Book# ${book.index}<br>Author: ${book.author}<br>Title: ${book.title}<br>Format: ${book.format}<br>Read: ${book.read}<br></div><br>`;
         allBooks += thisBook;
     });
     mainDisplay.innerHTML = "";
     mainDisplay.innerHTML = allBooks;
+    theLibrary.forEach((edit) => {
+        document
+            .querySelector(`.card${edit.index}`)
+            .addEventListener("click", (e) => {
+                editingBook = e.target.className;
+                editThis(editingBook);
+            });
+    });
 }
 
 function displayMessage(message) {
@@ -44,15 +63,24 @@ function saveClicked() {
         displayMessage("Complete All Fields");
         return;
     }
-    // !add new object to Library array
-    const book = new Book(
-        authorFormName,
-        titleFormName,
-        formatFormName,
-        readFormName
-    );
-    theLibrary.push(book);
-    displayMessage(`<p>${theLibrary.length} books in the library</p>`);
+    // !add new object to Library array IF edit is not taking place
+
+    if (!editInProgress) {
+        const book = new Book(
+            authorFormName,
+            titleFormName,
+            formatFormName,
+            readFormName
+        );
+        theLibrary.push(book);
+        displayMessage(`<p>${theLibrary.length} books in the library</p>`);
+    } else {
+        theLibrary[editingBook - 1].author = authorFormName;
+        theLibrary[editingBook - 1].title = titleFormName;
+        theLibrary[editingBook - 1].format = formatFormName;
+        theLibrary[editingBook - 1].read = readFormName;
+        editInProgress = false;
+    }
     authorFormName = "";
     titleFormName = "";
     formatFormName = "";
@@ -110,5 +138,7 @@ let formatFormName;
 let readFormName;
 let index = 1;
 let allBooks;
+let editInProgress = false;
+let editingBook = 0;
 
 messageArea.innerHTML = `<p>${theLibrary.length} books in the library</p>`;
