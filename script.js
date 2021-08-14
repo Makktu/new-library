@@ -5,8 +5,8 @@
 // *****************************************
 
 function editThis(editingBook) {
-    editingBook = editingBook.substring(13);
-    const thisIsTheBook = theLibrary[editingBook - 1];
+    editingBook = parseInt(editingBook.substring(13) - 1);
+    const thisIsTheBook = theLibrary[editingBook];
     if (newForm.classList.contains("invisible")) openOrCloseForm();
     document.querySelector(".author").value = thisIsTheBook.author;
     document.querySelector(".title").value = thisIsTheBook.title;
@@ -19,7 +19,7 @@ function updateDisplay() {
     allBooks = "";
     theLibrary.forEach((book) => {
         // ? NEEDS TO CREATE DISPLAY CARD NEXT TIME!!!
-        const thisBook = `<div class="book-card"><div class="edit-btn card${book.index}">❔</div>Book# ${book.index}<br>Author: ${book.author}<br>Title: ${book.title}<br>Format: ${book.format}<br>Read: ${book.read}<br></div><br>`;
+        const thisBook = `<div class="book-card"><div class="edit-btn card${book.index}">❔</div>Book# ${book.index}<br>Author: ${book.author}<br>Title: ${book.title}<br>Format: ${book.format}<br>Read: ${book.read}<br><div class="delete-btn del-${book.index}">⌫</div></div>`;
         allBooks += thisBook;
     });
     mainDisplay.innerHTML = "";
@@ -30,6 +30,14 @@ function updateDisplay() {
             .addEventListener("click", (e) => {
                 editingBook = e.target.className;
                 editThis(editingBook);
+
+                document
+                    .querySelector(`.del-${edit.index}`)
+                    .addEventListener("click", (e) => {
+                        // editingBook = e.target.className;
+                        // editThis(editingBook);
+                        console.log(e, "delete works!");
+                    });
             });
     });
 }
@@ -75,10 +83,12 @@ function saveClicked() {
         theLibrary.push(book);
         displayMessage(`<p>${theLibrary.length} books in the library</p>`);
     } else {
-        theLibrary[editingBook - 1].author = authorFormName;
-        theLibrary[editingBook - 1].title = titleFormName;
-        theLibrary[editingBook - 1].format = formatFormName;
-        theLibrary[editingBook - 1].read = readFormName;
+        editingBook = parseInt(editingBook.substring(13) - 1);
+
+        theLibrary[editingBook].author = authorFormName;
+        theLibrary[editingBook].title = titleFormName;
+        theLibrary[editingBook].format = formatFormName;
+        theLibrary[editingBook].read = readFormName;
         editInProgress = false;
     }
     authorFormName = "";
