@@ -5,14 +5,28 @@
 // *****************************************
 
 function editThis(editingBook) {
-    editingBook = parseInt(editingBook.substring(13) - 1);
-    const thisIsTheBook = theLibrary[editingBook];
-    if (newForm.classList.contains("invisible")) openOrCloseForm();
-    document.querySelector(".author").value = thisIsTheBook.author;
-    document.querySelector(".title").value = thisIsTheBook.title;
-    document.querySelector(".format").value = thisIsTheBook.format;
-    document.querySelector(".read").value = thisIsTheBook.read;
-    editInProgress = true;
+    if (!deletingThis) {
+        editingBook = parseInt(editingBook.substring(13) - 1);
+        const thisIsTheBook = theLibrary[editingBook];
+        if (newForm.classList.contains("invisible")) openOrCloseForm();
+        document.querySelector(".author").value = thisIsTheBook.author;
+        document.querySelector(".title").value = thisIsTheBook.title;
+        document.querySelector(".format").value = thisIsTheBook.format;
+        document.querySelector(".read").value = thisIsTheBook.read;
+        editInProgress = true;
+        return;
+    } else {
+        const deleteThis = parseInt(editingBook);
+        if (newForm.classList.contains("invisible")) openOrCloseForm();
+        let confirmDelete = prompt(
+            "Confirm Delete (Y/N) ?\n(Anything other than 'Y' aborts deletion)"
+        );
+        if (confirmDelete === "y" || confirmDelete === "Y") {
+            theLibrary.splice(deleteThis, 1);
+            deletingThis = false;
+            updateDisplay();
+        }
+    }
 }
 
 function updateDisplay() {
@@ -30,14 +44,14 @@ function updateDisplay() {
             .addEventListener("click", (e) => {
                 editingBook = e.target.className;
                 editThis(editingBook);
-
-                document
-                    .querySelector(`.del-${edit.index}`)
-                    .addEventListener("click", (e) => {
-                        // editingBook = e.target.className;
-                        // editThis(editingBook);
-                        console.log(e, "delete works!");
-                    });
+            });
+        document
+            .querySelector(`.del-${edit.index}`)
+            .addEventListener("click", (e) => {
+                editingBook = e.target.className;
+                editingBook = editingBook.substring(15);
+                deletingThis = true;
+                editThis(editingBook);
             });
     });
 }
@@ -150,5 +164,6 @@ let index = 1;
 let allBooks;
 let editInProgress = false;
 let editingBook = 0;
+let deletingThis = false;
 
 messageArea.innerHTML = `<p>${theLibrary.length} books in the library</p>`;
