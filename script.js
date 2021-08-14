@@ -16,13 +16,12 @@ function editThis(editingBook) {
         editInProgress = true;
         return;
     } else {
-        const deleteThis = parseInt(editingBook);
         if (newForm.classList.contains("invisible")) openOrCloseForm();
         let confirmDelete = prompt(
             "Confirm Delete (Y/N) ?\n(Anything other than 'Y' aborts deletion)"
         );
         if (confirmDelete === "y" || confirmDelete === "Y") {
-            theLibrary.splice(deleteThis, 1);
+            theLibrary.splice(editingBook - 1, 1);
             deletingThis = false;
             updateDisplay();
         }
@@ -49,7 +48,7 @@ function updateDisplay() {
             .querySelector(`.del-${edit.index}`)
             .addEventListener("click", (e) => {
                 editingBook = e.target.className;
-                editingBook = editingBook.substring(15);
+                editingBook = parseInt(editingBook.substring(15));
                 deletingThis = true;
                 editThis(editingBook);
             });
