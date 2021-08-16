@@ -30,9 +30,9 @@ function editThis(editingBook) {
 
 function updateDisplay() {
     allBooks = "";
-    theLibrary.forEach((book) => {
+    theLibrary.forEach((book, ind) => {
         // ? NEEDS TO CREATE DISPLAY CARD NEXT TIME!!!
-        const thisBook = `<div class="book-card"><div class="edit-btn card${book.index}">❔</div>Book# ${book.index}<br>Author: ${book.author}<br>Title: ${book.title}<br>Format: ${book.format}<br>Read: ${book.read}<br><div class="delete-btn del-${book.index}">⌫</div></div>`;
+        const thisBook = `<div class="book-card"><div class="edit-btn card${book.index}">❔</div>Book# ${book.index}<br>Author: ${book.author}<br>Title: ${book.title}<br>Format: ${book.format}<br>Read: ${book.read}<br><div class="delete-btn" data-delete='${ind}'>⌫</div></div>`;
         allBooks += thisBook;
     });
     mainDisplay.innerHTML = "";
@@ -44,14 +44,12 @@ function updateDisplay() {
                 editingBook = e.target.className;
                 editThis(editingBook);
             });
-        document
-            .querySelector(`.del-${edit.index}`)
-            .addEventListener("click", (e) => {
-                editingBook = e.target.className;
-                editingBook = parseInt(editingBook.substring(15));
-                deletingThis = true;
-                editThis(editingBook);
-            });
+        document.querySelector(".del-btn").addEventListener("click", (e) => {
+            editingBook = e.target.className;
+            editingBook = parseInt(editingBook.substring(15));
+            deletingThis = true;
+            editThis(editingBook);
+        });
     });
 }
 
@@ -73,15 +71,13 @@ function openOrCloseForm() {
 }
 
 function saveClicked() {
-    // ! check all fields completed and alert user if not
-    // ! first, get values of all fields
     authorFormName = document.querySelector(".author").value;
     titleFormName = document.querySelector(".title").value;
     formatFormName = document.querySelector(".format").value;
     readFormName = document.querySelector(".read").value;
-    // !check values are present and refuse to Save if not
+
     if (!authorFormName || !titleFormName || !formatFormName || !readFormName) {
-        displayMessage("Complete All Fields");
+        displayMessage("⚠️ Complete All Fields");
         return;
     }
     // !add new object to Library array IF edit is not taking place
@@ -96,6 +92,7 @@ function saveClicked() {
         theLibrary.push(book);
         displayMessage(`<p>${theLibrary.length} books in the library</p>`);
     } else {
+        // ? GET DATA NUMBER HERE
         editingBook = parseInt(editingBook.substring(13) - 1);
 
         theLibrary[editingBook].author = authorFormName;
