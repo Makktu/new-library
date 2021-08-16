@@ -4,55 +4,6 @@
 // ************** FUNCTIONS ****************
 // *****************************************
 
-function editThis(editingBook) {
-    if (!deletingThis) {
-        editingBook = parseInt(editingBook.substring(13) - 1);
-        const thisIsTheBook = theLibrary[editingBook];
-        if (newForm.classList.contains("invisible")) openOrCloseForm();
-        document.querySelector(".author").value = thisIsTheBook.author;
-        document.querySelector(".title").value = thisIsTheBook.title;
-        document.querySelector(".format").value = thisIsTheBook.format;
-        document.querySelector(".read").value = thisIsTheBook.read;
-        editInProgress = true;
-        return;
-    } else {
-        if (newForm.classList.contains("invisible")) openOrCloseForm();
-        let confirmDelete = prompt(
-            "Confirm Delete (Y/N) ?\n(Anything other than 'Y' aborts deletion)"
-        );
-        if (confirmDelete === "y" || confirmDelete === "Y") {
-            theLibrary.splice(editingBook - 1, 1);
-            deletingThis = false;
-            updateDisplay();
-        }
-    }
-}
-
-function updateDisplay() {
-    allBooks = "";
-    theLibrary.forEach((book, ind) => {
-        // ? NEEDS TO CREATE DISPLAY CARD NEXT TIME!!!
-        const thisBook = `<div class="book-card"><div class="edit-btn card${book.index}">❔</div>Book# ${book.index}<br>Author: ${book.author}<br>Title: ${book.title}<br>Format: ${book.format}<br>Read: ${book.read}<br><div class="delete-btn" data-delete='${ind}'>⌫</div></div>`;
-        allBooks += thisBook;
-    });
-    mainDisplay.innerHTML = "";
-    mainDisplay.innerHTML = allBooks;
-    theLibrary.forEach((edit) => {
-        document
-            .querySelector(`.card${edit.index}`)
-            .addEventListener("click", (e) => {
-                editingBook = e.target.className;
-                editThis(editingBook);
-            });
-        document.querySelector(".del-btn").addEventListener("click", (e) => {
-            editingBook = e.target.className;
-            editingBook = parseInt(editingBook.substring(15));
-            deletingThis = true;
-            editThis(editingBook);
-        });
-    });
-}
-
 function displayMessage(message) {
     messageArea.innerHTML = `<br>${message}`;
 }
