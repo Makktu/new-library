@@ -6,7 +6,13 @@
 
 function editThis(editingBook) {
     if (!deletingThis) {
-        editingBook = parseInt(editingBook.substring(13) - 1);
+        if (typeof editingBook !== Number)
+            editingBook = parseInt(editingBook.substring(13) - 1);
+        for (let j = 0; j < theLibrary.length; j++) {
+            if (theLibrary[j].index === editingBook) {
+                editingBook = j;
+            }
+        }
         const thisIsTheBook = theLibrary[editingBook];
         if (newForm.classList.contains("invisible")) openOrCloseForm();
         document.querySelector(".author").value = thisIsTheBook.author;
@@ -30,9 +36,8 @@ function editThis(editingBook) {
 
 function updateDisplay() {
     allBooks = "";
-    theLibrary.forEach((book) => {
-        // ? NEEDS TO CREATE DISPLAY CARD NEXT TIME!!!
-        const thisBook = `<div class="book-card"><div class="edit-btn card${book.index}">❔</div>Book# ${book.index}<br>Author: ${book.author}<br>Title: ${book.title}<br>Format: ${book.format}<br>Read: ${book.read}<br><div class="delete-btn del-${book.index}">⌫</div></div>`;
+    theLibrary.forEach((book, ind) => {
+        const thisBook = `<div class="book-card"><div class="edit-btn card${book.index}">❔</div>Book# ${book.index}<br>Author: ${book.author}<br>Title: ${book.title}<br>Format: ${book.format}<br>Read: ${book.read}<br><div class="delete-btn">⌫</div></div>`;
         allBooks += thisBook;
     });
     mainDisplay.innerHTML = "";
@@ -42,17 +47,27 @@ function updateDisplay() {
             .querySelector(`.card${edit.index}`)
             .addEventListener("click", (e) => {
                 editingBook = e.target.className;
+                deletingThis = false;
                 editThis(editingBook);
             });
         document
             .querySelector(`.del-${edit.index}`)
             .addEventListener("click", (e) => {
                 editingBook = e.target.className;
+
                 editingBook = parseInt(editingBook.substring(15));
+
+                for (let j = 0; j < theLibrary.length; j++) {
+                    if (theLibrary[j].index === editingBook) {
+                        editingBook = j;
+                    }
+                }
+
                 deletingThis = true;
                 editThis(editingBook);
             });
     });
+    displayMessage(`<p>${theLibrary.length} books in the library</p>`);
 }
 
 function displayMessage(message) {
@@ -96,7 +111,8 @@ function saveClicked() {
         theLibrary.push(book);
         displayMessage(`<p>${theLibrary.length} books in the library</p>`);
     } else {
-        editingBook = parseInt(editingBook.substring(13) - 1);
+        if (typeof editingBook !== Number)
+            editingBook = parseInt(editingBook.substring(13) - 1);
 
         theLibrary[editingBook].author = authorFormName;
         theLibrary[editingBook].title = titleFormName;
