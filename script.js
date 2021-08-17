@@ -7,10 +7,12 @@
 const deleteThisBook = (e) => {
     // get index number of book to be deleted
     deleteBookIndex = e;
+    console.log(e);
     deleteBookIndex = parseInt(deleteBookIndex.substring(11));
-    let confirmDelete = prompt(
-        "Delete cannot be undone. Proceed? (Y)\nAny other response aborts deletion."
-    );
+    // let confirmDelete = prompt(
+    //     "Delete cannot be undone. Proceed? (Y)\nAny other response aborts deletion."
+    // );
+    let confirmDelete = "Y";
     if (confirmDelete === "Y" || confirmDelete === "y") {
         theLibrary.forEach((book) => {
             if (book.index === deleteBookIndex) {
@@ -31,29 +33,25 @@ function updateDisplay() {
     theLibrary.forEach((book) => {
         if (book.show === 1) {
             // stuff
-            thisBook = `Book#${book.index}`;
-            thisBook += `\n\nAuthor: ${book.author}`;
-            thisBook += `Title: ${book.title}`;
-            thisBook += `Format: ${book.format}`;
-            thisBook += `Read: ${book.read}`;
+            thisBook = `<p>Book#${book.index}</p>`;
+            thisBook += `<p>Author: ${book.author}</p>`;
+            thisBook += `<p>Title: ${book.title}</p>`;
+            thisBook += `<p>Format: ${book.format}</p>`;
+            thisBook += `<p>Read: ${book.read}</p>`;
 
-            mainDisplay.innerHTML += `<div class="book-card">${thisBook}<div class="del-btn del${book.index}">🛑</div></div>`;
-
-            document
-                .querySelector(`.del${book.index}`)
-                .addEventListener("click", (e) => {
-                    deleteThisBook(e.target.className);
-                });
+            mainDisplay.innerHTML += `<div class="book-card"><div class="del-btn del${book.index}">❌</div>${thisBook}</div>`;
             thisBook = "";
         }
     });
-    // thisBook = "";
-
-    // <div class="del-btn">🛑</div>
+    for (let j = 0; j < theLibrary.length; j++) {
+        document.querySelector(".del-btn").addEventListener("click", (e) => {
+            deleteThisBook(e.target.className);
+        });
+    }
 }
 
 function displayMessage(message) {
-    messageArea.innerHTML = `<br>${message}`;
+    console.log(`<br>${message}`);
 }
 
 function openOrCloseForm() {
