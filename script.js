@@ -4,6 +4,54 @@
 // ************** FUNCTIONS ****************
 // *****************************************
 
+const deleteThisBook = (e) => {
+    // get index number of book to be deleted
+    deleteBookIndex = e;
+    deleteBookIndex = parseInt(deleteBookIndex.substring(11));
+    let confirmDelete = prompt(
+        "Delete cannot be undone. Proceed? (Y)\nAny other response aborts deletion."
+    );
+    if (confirmDelete === "Y" || confirmDelete === "y") {
+        theLibrary.forEach((book) => {
+            if (book.index === deleteBookIndex) {
+                book.show = 0;
+                updateDisplay();
+            }
+        });
+        confirmDelete = "";
+    } else {
+        confirmDelete = "";
+        return;
+    }
+};
+
+function updateDisplay() {
+    let thisBook;
+    mainDisplay.innerHTML = "";
+    theLibrary.forEach((book) => {
+        if (book.show === 1) {
+            // stuff
+            thisBook = `Book#${book.index}`;
+            thisBook += `\n\nAuthor: ${book.author}`;
+            thisBook += `Title: ${book.title}`;
+            thisBook += `Format: ${book.format}`;
+            thisBook += `Read: ${book.read}`;
+
+            mainDisplay.innerHTML += `<div class="book-card">${thisBook}<div class="del-btn del${book.index}">🛑</div></div>`;
+
+            document
+                .querySelector(`.del${book.index}`)
+                .addEventListener("click", (e) => {
+                    deleteThisBook(e.target.className);
+                });
+            thisBook = "";
+        }
+    });
+    // thisBook = "";
+
+    // <div class="del-btn">🛑</div>
+}
+
 function displayMessage(message) {
     messageArea.innerHTML = `<br>${message}`;
 }
@@ -31,37 +79,30 @@ function saveClicked() {
         displayMessage("⚠️ Complete All Fields");
         return;
     }
-    // !add new object to Library array IF edit is not taking place
 
-    if (!editInProgress) {
-        const book = new Book(
-            authorFormName,
-            titleFormName,
-            formatFormName,
-            readFormName
-        );
-        theLibrary.push(book);
-        displayMessage(`<p>${theLibrary.length} books in the library</p>`);
-    } else {
-        // ? GET DATA NUMBER HERE
-        editingBook = parseInt(editingBook.substring(13) - 1);
+    const book = new Book(
+        authorFormName,
+        titleFormName,
+        formatFormName,
+        readFormName
+    );
 
-        theLibrary[editingBook].author = authorFormName;
-        theLibrary[editingBook].title = titleFormName;
-        theLibrary[editingBook].format = formatFormName;
-        theLibrary[editingBook].read = readFormName;
-        editInProgress = false;
-    }
+    theLibrary.push(book);
+
+    displayMessage(`<p>${theLibrary.length} books in the library</p>`);
+
     authorFormName = "";
     titleFormName = "";
     formatFormName = "";
     readFormName = "";
+
     clearClicked();
+
     updateDisplay();
 }
 
 function clearClicked() {
-    // ! empty all fields, refresh form
+    // empty all fields, refresh form
     document.querySelector(".author").value = "";
     document.querySelector(".title").value = "";
     document.querySelector(".format").value = "";
@@ -78,6 +119,7 @@ function Book(author, title, format, read) {
     this.format = format;
     this.read = read;
     this.index = index; // 'invisible' one
+    this.show = 1;
     index++;
 }
 
@@ -108,9 +150,5 @@ let titleFormName;
 let formatFormName;
 let readFormName;
 let index = 1;
-let allBooks;
-let editInProgress = false;
-let editingBook = 0;
-let deletingThis = false;
-
-messageArea.innerHTML = `<p>${theLibrary.length} books in the library</p>`;
+let allBooks = "";
+let deleteBookIndex = "";

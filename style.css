@@ -111,8 +111,8 @@ button:hover {
 }
 
 .book-card {
-    border: 3px green solid;
-    background: rgb(32, 43, 28);
+    border: 3px rgb(235, 241, 235) solid;
+    background: rgb(6, 1, 20);
     border-radius: 10px;
     width: 12rem;
     height: 11rem;
@@ -133,7 +133,7 @@ button:hover {
     border-radius: 10px;
 }
 
-.delete-btn {
+.del-btn {
     float: right;
     margin-bottom: 20px;
     cursor: pointer;
