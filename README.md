@@ -5,3 +5,5 @@ My first effort ended up like so much twisted spaghetti. And was so full of bugs
 One of the main objects of this is to learn more about JS Objects and Prototypes, so I will be paying attention to that as well.
 
 13-Aug-2021: Got the Edit function working, but my solution is terrible. 'Making it work' through artifical brute force instead of writing proper clean code.
+
+17 Aug 2021: THE THIRD ATTEMPT (and final one). New branch.
