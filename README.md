@@ -7,3 +7,11 @@ One of the main objects of this is to learn more about JS Objects and Prototypes
 13-Aug-2021: Got the Edit function working, but my solution is terrible. 'Making it work' through artifical brute force instead of writing proper clean code.
 
 17 Aug 2021: THE THIRD ATTEMPT (and final one). New branch.
+
+18 Aug 2021: Done it! Completed all the required parts of the project. None of the bonus credit features, but everything else...
+
+-   Create a new book
+-   a button to delete it
+-   a button to toggle its Read status
+
+....exists.
