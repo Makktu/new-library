@@ -89,11 +89,12 @@ button:hover {
 .main-display {
     display: flex;
     flex-direction: row;
-    /* border: 1px white solid; */
     width: 80vw;
     height: 100vh;
     margin-left: 3vw;
     margin-top: 3vh;
+    flex-wrap: wrap;
+    align-content: flex-start;
 }
 
 @keyframes error {
@@ -114,12 +115,14 @@ button:hover {
     border: 3px rgb(235, 241, 235) solid;
     background: rgb(0, 2, 0);
     border-radius: 10px;
-    width: 12rem;
-    height: 14rem;
+    width: 15rem;
+    height: 18rem;
     font-size: 1.25rem;
     padding: 10px;
     transition: 0.5s;
     margin-left: 10px;
+    margin-bottom: 10px;
+    overflow: auto;
 }
 
 .edit-btn {
@@ -137,4 +140,12 @@ button:hover {
     float: right;
     margin-bottom: 20px;
     cursor: pointer;
+}
+
+.read-toggle {
+    cursor: pointer;
+}
+
+.read-toggle:hover {
+    text-decoration: underline;
 }
