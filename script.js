@@ -127,12 +127,14 @@ function clearClicked() {
 }
 
 // *********** THE CONSTRUCTOR *************
-function Book(author, title, format, read) {
-    this.author = author;
-    this.title = title;
-    this.format = format;
-    this.read = read;
-    this.index = 0;
+class Book {
+    constructor(author, title, format, read) {
+        this.author = author;
+        this.title = title;
+        this.format = format;
+        this.read = read;
+        this.index = 0;
+    }
 }
 
 // ********* ASSIGN BUTTON CONTROLS ********
