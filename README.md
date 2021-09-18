@@ -17,3 +17,5 @@ One of the main objects of this is to learn more about JS Objects and Prototypes
 ....exists.
 
 17 Sep 2021: returning as per instruction within the project, to refactor this thing to work with Classes instead of Constructors.
+22-Aug-2021: the display is wonky on some browsers/devices. Doh. I won't backtrack to fix this now, for this project, but will strive to avoid the issue(s) in future projects.
+fixed
