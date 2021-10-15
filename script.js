@@ -4,6 +4,15 @@
 // ************** FUNCTIONS ****************
 // *****************************************
 
+class App {
+    constructor(a) {
+        this.a = a;
+        // alert("made it!");
+    }
+
+    // how do I learn this to a good enough level within 6 months?
+}
+
 const deleteThisBook = (e) => {
     theLibrary.splice(parseInt(e.substring(11)), 1);
     updateDisplay();
@@ -165,3 +174,5 @@ let index = 1;
 let allBooks = "";
 let deleteBookIndex = "";
 let readFlagError = false;
+
+const app = new App(1);
